@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 
 import requests
+import sys
+from os import getenv
 from base64 import b64encode
 
-CLIENT_ID = '{MY CLIENT ID}'.encode('ascii')
-CLIENT_SECRET = '{MY CLIENT SECERT}'.encode('ascii')
+CLIENT_ID = getenv("CLIENT_ID", None)
+CLIENT_SECRET = getenv("CLIENT_SECRET", None)
+if CLIENT_ID is None or CLIENT_SECRET is None:
+    print("Please set up environment variables 'CLIENT_ID' and 'CLIENT_SECRET")
+    sys.exit(-1)
+
 
 # Requests access token
 reqs_body = {'grant_type': 'client_credentials'}
 
-encoded_cred = b64encode(CLIENT_ID + b':' + CLIENT_SECRET).decode('ascii')
+encoded_cred = b64encode((CLIENT_ID + ':' + CLIENT_SECRET).encode('ascii')).decode('ascii')
 
 header = {'Authorization': "Basic " + encoded_cred}
 resp = requests.post("https://accounts.spotify.com/api/token",

@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 import spotipy
+import sys
+from os import getenv
 from spotipy.oauth2 import SpotifyClientCredentials
 
 
-CLIENT_ID = "{MY CLIENT_ID"
-CLIENT_SECRET = "{MY CLIENT SECRET}"
+CLIENT_ID = getenv("CLIENT_ID", None)
+CLIENT_SECRET = getenv("CLIENT_SECRET", None)
+if CLIENT_ID is None or CLIENT_SECRET is None:
+    print("Please set up environment variables 'CLIENT_ID' and 'CLIENT_SECRET")
+    sys.exit(-1)
 
 
 cred_manager = SpotifyClientCredentials(client_id=CLIENT_ID,
