@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file, redirect, url_for, abort, jsonify
-from os import urandom
+from os import urandom, getenv
 from base64 import b64encode
+import sys
 import requests as reqts
 
 # Enter your application's client ID and client secret
-CLIENT_ID = "{MY CLIENT ID}"
-CLIENT_SECRET = "{MY CLIENT_SECRET}"
+CLIENT_ID = getenv("CLIENT_ID", None)
+CLIENT_SECRET = getenv("CLIENT_SECRET", None)
+if CLIENT_ID is None or CLIENT_SECRET is None:
+    print("Please set up environment variables 'CLIENT_ID' and 'CLIENT_SECRET")
+    sys.exit(-1)
+
 
 app = Flask(__name__)
 
