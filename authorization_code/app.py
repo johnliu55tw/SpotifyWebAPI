@@ -6,7 +6,6 @@ from base64 import b64encode
 import sys
 import requests as reqts
 
-# Enter your application's client ID and client secret
 CLIENT_ID = getenv("CLIENT_ID", None)
 CLIENT_SECRET = getenv("CLIENT_SECRET", None)
 if CLIENT_ID is None or CLIENT_SECRET is None:
